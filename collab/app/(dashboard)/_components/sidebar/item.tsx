@@ -1,0 +1,40 @@
+import { useOrganization } from "@clerk/nextjs";
+import { useOrganizationList } from "@clerk/nextjs";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+interface itemProps {
+    id: string;
+    name: string;
+    imageUrl: string;
+}
+
+;
+
+
+export const Item = ({ id, name, imageUrl }: itemProps) => {
+
+    const { organization } = useOrganization();
+    const { setActive } = useOrganizationList()
+
+    const isActive = organization?.id === id;
+
+    const onClick = () => {
+        if (!setActive) return;
+        setActive({organization:id});
+    }
+
+
+    return (
+        <div className="aspect-square relative">
+            <Image
+                fill
+                src={imageUrl}
+                alt={name}
+                onClick={onClick}
+                className={cn("cursor-pointer rounded-md opacity-60 hover:opacity-100 transition", isActive && "opacity-100")}
+
+            />
+        </div>
+    )
+};
