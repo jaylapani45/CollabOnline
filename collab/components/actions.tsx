@@ -1,6 +1,6 @@
 "use client";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu"
-import { Link2 } from "lucide-react"
+import { FileEdit, Link2 } from "lucide-react"
 import { Trash } from "lucide-react"
 
 import { DropdownMenu,DropdownMenuContent,DropdownMenuSeparator,DropdownMenuTrigger,DropdownMenuItem } from "./ui/dropdown-menu"
@@ -11,6 +11,7 @@ import {v} from "convex/values"
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { ConfirmModal } from "./confirm-modal";
 import { Button } from "./ui/button";
+import { RenameBoard } from "@/app/(dashboard)/_components/rename-board";
 
 interface ActionProps{
     children:React.ReactNode
@@ -32,19 +33,29 @@ export const Actions=({children,id,title,side,sideOffset}:ActionProps)=>{
         .then(()=>toast.success("Board removed"))
         .catch(()=>toast.error("Failed to remove board"))
     }
+    
     return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 {children}
             </DropdownMenuTrigger>
             <DropdownMenuContent side="right" sideOffset={sideOffset} className="w-60" onClick={(e)=>e.stopPropagation()}>
-                <DropdownMenuItem className="p-3 cursor-pointer" onClick={copyLink}>
+                {/* <DropdownMenuItem className="cursor-pointer" onClick={copyLink}> */}
+                <Button className="h-full w-full flex justify-start p-3 " variant="ghost" onClick={copyLink}>
                     <Link2 className="h-4 w-4 mr-2" />Copy board link
-                </DropdownMenuItem>
+                </Button>
+                {/* </DropdownMenuItem> */}
+                <RenameBoard id={id} title={title}>
+                {/* <DropdownMenuItem> */}
+                <Button className="h-full w-full flex justify-start p-3 " variant="ghost">
+                    <FileEdit className="h-4 w-4 mr-2 " />Rename board
+                </Button>
+                {/* </DropdownMenuItem> */}
+                </RenameBoard>
                 
                 {/* <DropdownMenuItem className="p-3 cursor-pointer"> */}
                 <ConfirmModal onConfirm={removeBoard} tittle="Delete board?" description="This will delete your board" >
-                    <Button className="h-full w-full flex justify-start" variant="ghost">
+                    <Button className="h-full w-full flex justify-start p-3" variant="ghost">
                     <Trash className="h-4 w-4 mr-2" />Delete borad
                     </Button>
                 </ConfirmModal>

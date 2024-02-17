@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import { Overlay } from "./overlay"
 import Link from "next/link"
@@ -9,6 +10,8 @@ import { Actions } from "@/components/actions";
 import { CopyIcon, Edit, MenuIcon, MoreHorizontalIcon } from "lucide-react";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
+
 
 
 interface BoardCardProps {
@@ -30,17 +33,26 @@ export const BoardCard = ({id,orgId,title,authorId,authorName,imageUrl,time,isFa
         addSuffix:true
     })
 
-    const {pending,mutate} = useApiMutation(api.board.addFavorite);
-    const favorite = () =>{
-        console.log("clicked")
-        mutate({userId:userId,boardId:id,orgId:orgId})
+    const {pending,mutate:addFavorite} = useApiMutation(api.board.addFavorite);
+    
+    const favorite =() =>{
+            addFavorite({id:id,userId:userId,orgId:orgId})
+                 .then(()=>
+                 (((isFavorite) && toast.success("Removed from favorites")),
+                 ((!isFavorite) && toast.success("Added to favorites"))
+                 ))
+                 .catch(()=>
+                 (((isFavorite) && toast.error("Failed to remove from favorites")),
+                 ((!isFavorite) && toast.error("Failed to add in  favorites"))
+                 ))
+                 
+                    
     }
     
     return(
         <div className="group aspect-[100/127] flex justify-between flex-col overflow-hidden rounded-md border border-black border-opacity-15">
             <Link href={`/board/${id}`}>
-                <div className="group aspect-[100/127] flex justify-between flex-col overflow-hidden rounded-md border border-black border-opacity-15">
-            
+            <div className="group aspect-[100/95] flex justify-between flex-col overflow-hidden rounded-md border border-black border-opacity-15">
             <div className="relative flex-1 bg-amber-50">
             <Image src={imageUrl} alt={title} fill className="object-fit"/>
             <Overlay />
@@ -49,9 +61,15 @@ export const BoardCard = ({id,orgId,title,authorId,authorName,imageUrl,time,isFa
             </Actions>
             </div>
             </div>
-            
-        </Link>
-        
+            </Link>
+            <Footer
+                isFavorite={isFavorite}
+                title={title}
+                authorLabel={authorLabel}
+                createdAtLabel={createdAtLabel}
+                onClick={favorite}
+                disabled={false}
+             />
         </div>
     )
 }

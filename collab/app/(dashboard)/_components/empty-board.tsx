@@ -7,8 +7,10 @@ import { api } from "@/convex/_generated/api";
 import { useState } from "react";
 import { error } from "console";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const EmptyBoard = () => {
+    const router  = useRouter();
     const [pending,setPending]= useState(false);
     const {organization} = useOrganization();
 
@@ -22,7 +24,9 @@ export const EmptyBoard = () => {
             title:"check",
         })
         .finally(()=>setPending(false))
-        .then((id)=>{toast.success("board created")})
+        .then((id)=>{toast.success("board created");
+        router.push(`/board/${id}`)
+        })
         .catch((error)=>{toast.error(error)})
 
     }

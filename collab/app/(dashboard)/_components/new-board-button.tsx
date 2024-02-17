@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { api } from "@/convex/_generated/api";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 // import { error } from "console";
 
 interface NewBoardButtonProps{
@@ -13,6 +14,7 @@ interface NewBoardButtonProps{
 
 export const NewBoardButton = ({orgId,disabled}:NewBoardButtonProps) => {
   const [pending , setPending] = useState(false)
+  const router = useRouter();
   const create = useMutation(api.board.create);
   const onClick = () => {
     setPending(true);
@@ -21,7 +23,9 @@ export const NewBoardButton = ({orgId,disabled}:NewBoardButtonProps) => {
       
       )
       .finally(()=>setPending(false))
-      .then((id)=> toast.success("Board created"))
+      .then((id)=>{ toast.success("Board created");
+      router.push(`/board/${id}`)
+    })
       .catch((error)=>toast.error("Something went wrong"))
       
   };

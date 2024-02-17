@@ -18,6 +18,7 @@ export const Footer = ({
   onClick,
   disabled,
 }: FooterProps) => {
+  
   return (
     <div className="relative bg-white p-3">
       <p className="truncate text-[13px] max-w-[calc(100%-20px)]">{title}</p>
