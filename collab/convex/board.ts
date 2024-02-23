@@ -84,17 +84,9 @@ export const addFavorite = mutation({
   },
 })
 
-// export const isFavorite = query({
-//   args:{id:v.id("boards")},
-//   async handler(ctx, args) {
-      
-//       return isFavorite;
-//   },
-// })
-
-// export const removeFavorite = mutation({
-//   args:{id:v.id("userFavorite")},
-//   async handler(ctx, args) {
-    
-//   },
-// })
+export const get = query({
+  args:{id:v.id("boards")},
+  handler(ctx, args) {
+    return ctx.db.get(args.id)
+  },
+})

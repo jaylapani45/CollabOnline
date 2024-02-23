@@ -22,7 +22,7 @@ export const OrgSidebar = () => {
       <Link href="/">
         <div className="flex items-center gap-x-2">
           <Image src="/logo.png" alt="logo" width={60} height={60} />
-          <span className={cn("font-semibold text-2xl",PoppinsFont.className)}>Board</span>
+          <span className={cn("font-semibold text-2xl",PoppinsFont.className)}>Collab</span>
         </div>
       </Link>
       <OrganizationSwitcher

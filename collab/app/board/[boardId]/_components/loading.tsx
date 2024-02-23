@@ -1,4 +1,4 @@
-// import { Skeleton } from "@/components/ui/skeleton";
+"use client"
 import { Loader } from "lucide-react";
 import { Info } from "./info";
 import { Participants } from "./participants";

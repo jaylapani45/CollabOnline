@@ -39,12 +39,12 @@ export const Actions=({children,id,title,side,sideOffset}:ActionProps)=>{
             <DropdownMenuTrigger asChild>
                 {children}
             </DropdownMenuTrigger>
-            <DropdownMenuContent side="right" sideOffset={sideOffset} className="w-60" onClick={(e)=>e.stopPropagation()}>
-                {/* <DropdownMenuItem className="cursor-pointer" onClick={copyLink}> */}
+            <DropdownMenuContent side={side} sideOffset={sideOffset} className="w-60" onClick={(e)=>e.stopPropagation()}>
+                <DropdownMenuItem className="cursor-pointer m-0 p-0">
                 <Button className="h-full w-full flex justify-start p-3 " variant="ghost" onClick={copyLink}>
-                    <Link2 className="h-4 w-4 mr-2" />Copy board link
+                    <Link2 className="h-4 w-4 mr-2" /><span> Copy board link </span>
                 </Button>
-                {/* </DropdownMenuItem> */}
+                </DropdownMenuItem>
                 <RenameBoard id={id} title={title}>
                 {/* <DropdownMenuItem> */}
                 <Button className="h-full w-full flex justify-start p-3 " variant="ghost">
