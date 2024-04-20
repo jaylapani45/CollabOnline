@@ -23,7 +23,7 @@ export const LayerPreview = memo(({id,onLayerPointerDown,selectionColor}:LayerPr
             <Rectangle
                 id={id}
                 layer={layer}
-                onLayerPointerDown={onLayerPointerDown}
+                onPointerDown={onLayerPointerDown}
                 selectionColor={selectionColor}
                 />
             )

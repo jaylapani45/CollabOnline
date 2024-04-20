@@ -18,16 +18,16 @@ const boundingBox = (layers:Layer[]):XYWH |null =>{
         const {x,y,width,height} = layers[i]
 
         if(left>x){
-            left = x
+            left = x;
         }
         if(right < x + width){
-            right = x + width
+            right = x + width;
         }
         if(top>y){
-            top=y
+            top=y;
         }
         if(bottom<y+height){
-            bottom = y+height
+            bottom = y+height;
         }
     }
     return{
@@ -35,7 +35,6 @@ const boundingBox = (layers:Layer[]):XYWH |null =>{
         y:top,
         width:right-left,
         height:bottom-top
-
     }
 }
 

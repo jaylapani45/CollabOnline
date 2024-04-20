@@ -27,7 +27,19 @@ export function PointerEventToCanvas (e:React.PointerEvent,camera:Camera){
 }
 
 export function colorToCss (color:Color){
-  return `#${color.r.toString(16).padStart(2,"0")}${color.g.toString(16).padStart(2,"0")}${color.b.toString(16).padStart(2,"0")}}`
+  return `#${color.r.toString(16).padStart(2,"0")}${color.g.toString(16).padStart(2,"0")}${color.b.toString(16).padStart(2,"0")}`
+}
+
+export function colorPickerToColor(color:string){
+  const hex_code = color.replace("#","")
+  var bigint = parseInt(hex_code, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+  return {
+    r,g,b
+  }
 }
 
 export function resizeBounds(bounds:XYWH,corner:Side,point:Points):XYWH{
@@ -37,22 +49,22 @@ export function resizeBounds(bounds:XYWH,corner:Side,point:Points):XYWH{
     width:bounds.width,
     height:bounds.height
   }
-  if(corner&&Side.Left === Side.Left){
+  if((corner & Side.Left) === Side.Left){
     result.x = Math.min(point.x,bounds.x+bounds.width)
     result.width = Math.abs(bounds.x+bounds.width - point.x)
   }
 
-  if(corner&&Side.Right === Side.Right){
+  if((corner & Side.Right) === Side.Right){
     result.x = Math.min(point.x,bounds.x)
     result.width = Math.abs(point.x - bounds.x)
   }
 
-  if(corner&&Side.Top === Side.Top){
+  if((corner & Side.Top )=== Side.Top){
     result.y = Math.min(point.y,bounds.y+bounds.height)
     result.height = Math.abs(bounds.y+bounds.height - point.y)
   }
 
-  if(corner&&Side.Bottom === Side.Bottom){
+  if((corner & Side.Bottom) === Side.Bottom){
     result.y = Math.min(point.y,bounds.y)
     result.height = Math.abs(point.y - bounds.y)
   }

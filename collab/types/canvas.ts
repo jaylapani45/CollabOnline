@@ -97,7 +97,8 @@ export type CanvasState =
         mode:CanvasMode.None
     }
     | {
-        mode:CanvasMode.Pressing
+        mode:CanvasMode.Pressing,
+        origin:Points
     }
     | {
         mode:CanvasMode.SelectionNet,
@@ -111,7 +112,7 @@ export type CanvasState =
     }
     | {
         mode:CanvasMode.Translating
-        current?:Points
+        current:Points
     }
     | {
         mode:CanvasMode.Inserting,
