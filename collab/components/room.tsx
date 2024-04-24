@@ -13,7 +13,8 @@ interface RoomProps {
 
 export const Room = ({ roomId, children,fallback }: RoomProps) => {
     return(
-        <RoomProvider id={roomId} initialPresence={{cursor:null,selection:[]}} initialStorage={{layers:new LiveMap<string,LiveObject<Layer>>(),layerIds:new LiveList()}}>
+        <RoomProvider id={roomId} initialPresence={{cursor:null,selection:[],pencilDraft: null,pencilColor: null,}} initialStorage={{layers:new LiveMap<string,LiveObject<Layer>>(),layerIds:new LiveList()} }
+        >
             <ClientSideSuspense fallback={fallback}>
                 {()=>children}
             </ClientSideSuspense>
